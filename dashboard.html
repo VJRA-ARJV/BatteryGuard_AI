@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VoltCheck · Salud de batería</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="Style/style.css">
+</head>
+<body>
+ 
+<!-- Selectores de pantalla (cambian la vista solo con CSS) -->
+<input type="radio" name="vista" id="v1" class="vh" checked>
+<input type="radio" name="vista" id="v2" class="vh">
+ 
+<div class="app">
+ 
+  <!-- ===== Barra lateral ===== -->
+  <aside class="side">
+    <div class="brand"><div class="bolt">⚡</div><div>VoltCheck<small>Salud de batería</small></div></div>
+    <nav class="nav" aria-label="Pantallas">
+      <label for="v1"><b>Datos y hábitos</b><span>Vehículo, batería y uso diario</span></label>
+      <label for="v2"><b>Diagnóstico técnico</b><span>Lecturas del BMS (taller)</span></label>
+    </nav>
+    <p class="note">Prototipo de interfaz. Los valores mostrados son ejemplos y no se calculan.</p>
+  </aside>
+ 
+  <!-- ===== Contenido ===== -->
+  <main class="main">
+ 
+    <!-- PANTALLA 1 -->
+    <section class="view" id="view1">
+      <header class="top">
+        <div>
+          <h1>Cuéntanos sobre tu vehículo</h1>
+          <p>Con estos datos básicos estimamos cuánto desgaste esperar. Los encuentras en el manual, el tablero o la app del auto.</p>
+        </div>
+        <span class="pill"><i></i>Paso 1 de 2</span>
+      </header>
+ 
+      <div class="card">
+        <h2>Vehículo</h2>
+        <p class="sub">La edad y el tipo de uso definen el desgaste esperado.</p>
+        <div class="grid">
+          <div class="f"><label for="marca">Marca</label>
+            <select id="marca"><option>Ford</option><option>GM</option><option>Honda</option><option selected>Hyundai</option></select></div>
+          <div class="f"><label for="modelo">Modelo</label>
+            <select id="modelo">
+              <optgroup label="Ford"><option>Mustang Mach-E</option><option>F-150 Lightning</option><option>E-Transit</option></optgroup>
+              <optgroup label="GM"><option>Chevrolet Bolt</option><option>Equinox EV</option><option>Cadillac Lyriq</option></optgroup>
+              <optgroup label="Honda"><option>Prologue</option><option>Honda e</option></optgroup>
+              <optgroup label="Hyundai"><option selected>Ioniq 5</option><option>Ioniq 6</option><option>Kona Electric</option></optgroup>
+            </select><small>Agrupados por marca.</small></div>
+          <div class="f"><label for="anio">Año de fabricación</label><input id="anio" type="number" min="2015" max="2024" value="2021"><small>Entre 2015 y 2024.</small></div>
+          <div class="f"><label for="odo">Kilometraje total</label>
+            <div class="unit"><input id="odo" type="number" min="500" max="450000" value="68500"><span>km</span></div><small>Del tablero del auto.</small></div>
+          <div class="f"><span class="l">Tipo de uso</span>
+            <div class="seg"><label><input type="radio" name="uso" checked>Particular</label><label><input type="radio" name="uso">Flotilla</label></div>
+            <small>Indica cómo se usa el vehículo.</small></div>
+        </div>
+      </div>
+ 
+      <div class="card">
+        <h2>Batería</h2>
+        <p class="sub">Elige la química de las celdas. Si no la conoces, búscala en la ficha técnica del modelo.</p>
+        <div class="chems" role="radiogroup" aria-label="Química de la batería">
+          <label><input type="radio" name="quim" checked><b>NMC</b><small>Níquel, manganeso, cobalto</small></label>
+          <label><input type="radio" name="quim"><b>NCA</b><small>Níquel, cobalto, aluminio</small></label>
+          <label><input type="radio" name="quim"><b>LMO</b><small>Litio, manganeso, óxido</small></label>
+          <label><input type="radio" name="quim"><b>LTO</b><small>Litio, titanato</small></label>
+          <label><input type="radio" name="quim"><b>LFP</b><small>Litio, hierro, fosfato</small></label>
+          <label><input type="radio" name="quim"><b>No sé</b><small>Usaremos un promedio</small></label>
+        </div>
+        <div class="grid" style="margin-top:18px">
+          <div class="f"><label for="cap">Capacidad de diseño</label>
+            <div class="unit"><input id="cap" type="number" min="25" max="150" value="77"><span>kWh</span></div><small>Entre 25 y 150 kWh.</small></div>
+        </div>
+      </div>
+ 
+      <div class="card">
+        <h2>Hábitos de carga y conducción</h2>
+        <p class="sub">Un estimado es suficiente.</p>
+        <div class="grid">
+          <div class="f"><span class="l">Carga rápida <em>(vs. carga en casa)</em></span>
+            <div class="range"><input type="range" min="0" max="100" value="25" aria-label="Porcentaje de carga rápida"><b>25%</b></div></div>
+          <div class="f"><label for="dist">Distancia diaria promedio</label>
+            <div class="unit"><input id="dist" type="number" min="3" max="205" value="42"><span>km</span></div><small>Entre 3 y 205 km.</small></div>
+          <div class="f"><label for="ciclos">Cargas el último mes</label>
+            <input id="ciclos" type="number" value="18"><small>Aproximadas, cuenta cada vez que conectas el auto.</small></div>
+        </div>
+      </div>
+ 
+      <div class="actions">
+        <button class="btn" type="button">Limpiar datos</button>
+        <label class="btn pr" for="v2" style="display:grid;place-items:center;cursor:pointer">Continuar al diagnóstico</label>
+      </div>
+    </section>
+ 
+    <!-- PANTALLA 2 -->
+    <section class="view" id="view2">
+      <header class="top">
+        <div>
+          <h1>Lecturas del BMS</h1>
+          <p>Ingresa los valores que muestra el escáner OBD2 o el sistema de gestión de la batería durante la revisión.</p>
+        </div>
+        <span class="pill"><i></i>Paso 2 de 2</span>
+      </header>
+ 
+      <div class="meters" aria-label="Resumen de lecturas">
+        <div class="meter"><span>Salud (SOH)</span><b>82<small>%</small></b><div class="bar or"><i style="width:82%"></i></div></div>
+        <div class="meter"><span>Carga actual (SOC)</span><b>64<small>%</small></b><div class="bar"><i style="width:64%"></i></div></div>
+        <div class="meter"><span>Voltaje del paquete</span><b>361<small>V</small></b><div class="bar"><i style="width:78%"></i></div></div>
+        <div class="meter"><span>Temp. máxima</span><b>41<small>°C</small></b><div class="bar or"><i style="width:68%"></i></div></div>
+      </div>
+ 
+      <div class="card">
+        <h2>Salud y rendimiento</h2>
+        <p class="sub">Indicadores directos del estado de la batería.</p>
+        <div class="grid">
+          <div class="f"><label for="soh">Salud de la batería (SOH)</label><div class="unit"><input id="soh" type="number" min="40" max="100" value="82"><span>%</span></div><small>Menos de 70% indica riesgo alto.</small></div>
+          <div class="f"><label for="soc">Estado de carga (SOC)</label><div class="unit"><input id="soc" type="number" value="64"><span>%</span></div></div>
+          <div class="f"><label for="cyc">Ciclos registrados</label><input id="cyc" type="number" value="1120"></div>
+        </div>
+      </div>
+ 
+      <div class="card">
+        <h2>Mediciones eléctricas y térmicas</h2>
+        <p class="sub">Lecturas instantáneas, tomadas con el auto en reposo.</p>
+        <div class="grid">
+          <div class="f"><label for="pv">Voltaje del paquete</label><div class="unit"><input id="pv" type="number" min="220" max="400" value="361"><span>V</span></div><small>Entre 220 y 400 V.</small></div>
+          <div class="f"><label for="cv">Voltaje promedio por celda</label><div class="unit"><input id="cv" type="number" step="0.01" min="3" max="4.2" value="3.76"><span>V</span></div><small>Escríbelo en voltios, por ejemplo 3.76.</small></div>
+          <div class="f"><label for="ir">Resistencia interna</label><div class="unit"><!-- Unidad pendiente: el dataset mezcla escalas en internal_resistance -->
+            <input id="ir" type="number" value="406"><span>mΩ</span></div></div>
+          <div class="f"><label for="ta">Temp. promedio de celdas</label><div class="unit"><input id="ta" type="number" value="33"><span>°C</span></div></div>
+          <div class="f"><label for="tm">Temp. máxima de celdas</label><div class="unit"><input id="tm" type="number" value="41"><span>°C</span></div></div>
+        </div>
+      </div>
+ 
+      <div class="card">
+        <h2>Alertas y mantenimiento</h2>
+        <p class="sub">Diferencias entre celdas y fallas registradas.</p>
+        <div class="grid">
+          <div class="f"><label for="vi">Desbalance de voltaje</label><div class="unit"><!-- Unidad pendiente: confirmar en el dataset (voltage_imbalance) -->
+            <input id="vi" type="number" min="0" value="25"><span>mV</span></div><small>Diferencia entre la celda más alta y la más baja.</small></div>
+          <div class="f"><label for="tv">Variación de temperatura</label><div class="unit"><input id="tv" type="number" value="6"><span>°C</span></div></div>
+          <div class="f"><label for="wc">Advertencias del BMS</label><input id="wc" type="number" min="0" max="10" value="3"><small>Con 3 o más, el riesgo sube de forma notable.</small></div>
+          <div class="f"><label for="ls">Último mantenimiento</label><div class="unit"><input id="ls" type="number" min="0" max="1500" value="410"><span>días</span></div></div>
+        </div>
+        <div class="flag" role="note">⚠ Hay 3 advertencias del BMS registradas. Conviene programar una revisión.</div>
+      </div>
+ 
+      <div class="actions">
+        <label class="btn" for="v1" style="display:grid;place-items:center;cursor:pointer">Volver a datos</label>
+        <button class="btn pr" type="button">Analizar batería</button>
+      </div>
+    </section>
+  </main>
+ 
+  <!-- ===== Resultado (ejemplo) ===== -->
+  <aside class="res" aria-label="Resultado del análisis">
+    <h2>Resultado del análisis</h2>
+ 
+    <div>
+      <div class="battery" aria-hidden="true">
+        <div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="warn"></i><i></i></div>
+        <div class="tip"></div>
+      </div>
+      <div class="soh" style="margin-top:14px"><b>82%</b><span>de su capacidad original</span></div>
+    </div>
+ 
+    <div class="verdicts">
+      <div class="vd act"><span class="dot"></span><div><b>Mantenimiento preventivo</b><small>Programa una revisión pronto</small></div></div>
+      <div class="vd"><span class="dot"></span><div><b>Reemplazo recomendado</b><small>Salud por debajo del 70%</small></div></div>
+      <div class="vd"><span class="dot"></span><div><b>Todo en orden</b><small>Sin anomalías detectadas</small></div></div>
+    </div>
+ 
+    <div class="life">
+      <small>Vida útil restante estimada</small>
+      <b>≈ 7,800 ciclos</b>
+      <div class="bar"><i style="width:55%"></i></div>
+      <small>Rango de referencia: 1,656 a 12,870 ciclos</small>
+    </div>
+ 
+    <div>
+      <h2 style="font-size:14.5px;margin-bottom:8px">Por qué este resultado</h2>
+      <ul class="why">
+        <li>3 advertencias del BMS registradas</li>
+        <li>410 días desde la última revisión</li>
+        <li>Salud de 82%, aún sobre el límite de 70%</li>
+      </ul>
+    </div>
+ 
+    <p class="fine">Estimación orientativa. No sustituye la revisión de un técnico certificado.</p>
+  </aside>
+ 
+</div>
+</body>
+</html>
